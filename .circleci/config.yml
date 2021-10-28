@@ -1,0 +1,99 @@
+version: 2.1
+
+docker_context: &docker_context
+  context:
+    - Leddzip Dockerhub
+
+develop_filter: &develop_filter
+  filters:
+    branches:
+      only: develop
+master_filter: &master_filter
+  filters:
+    branches:
+      only: master
+
+jobs:
+  build-and-deploy:
+    machine:
+      image: ubuntu-2004:202107-02
+    parameters:
+      env:
+        type: string
+      python_tag:
+        type: string
+      poetry_version:
+        type: string
+    steps:
+      - checkout
+      - run: |
+          export ENV_TARGET=<<parameters.env>>
+          export PYTHON_DOCKER_TAG=<<parameters.python_tag>>
+          export POETRY_VERSION=<<parameters.poetry_version>>
+          echo "$MY_CIRCLECI_DOCKERHUB_PASSWORD" | docker login --username $MY_CIRCLECI_DOCKERHUB_USERNAME --password-stdin
+          make generate-dockerfile
+          make build
+          make push
+          make clean
+
+workflows:
+  "Build develop":
+    jobs:
+      - build-and-deploy:
+          name: 3_10_build_and_deploy
+          <<: *docker_context
+          <<: *develop_filter
+          env: dev
+          python_tag: 3.10
+          poetry_version: 1.1.11
+      - build-and-deploy:
+          name: 3_9_build_and_deploy
+          <<: *docker_context
+          <<: *develop_filter
+          env: dev
+          python_tag: 3.9
+          poetry_version: 1.1.11
+      - build-and-deploy:
+          name: 3_8_build_and_deploy
+          <<: *docker_context
+          <<: *develop_filter
+          env: dev
+          python_tag: 3.8
+          poetry_version: 1.1.11
+      - build-and-deploy:
+          name: 3_7_build_and_deploy
+          <<: *docker_context
+          <<: *develop_filter
+          env: dev
+          python_tag: 3.7
+          poetry_version: 1.1.11
+  "Build production":
+    jobs:
+      - build-and-deploy:
+          name: 3_10_build_and_deploy
+          <<: *docker_context
+          <<: *master_filter
+          env: prod
+          python_tag: 3.10
+          poetry_version: 1.1.11
+      - build-and-deploy:
+          name: 3_9_build_and_deploy
+          <<: *docker_context
+          <<: *master_filter
+          env: prod
+          python_tag: 3.9
+          poetry_version: 1.1.11
+      - build-and-deploy:
+          name: 3_8_build_and_deploy
+          <<: *docker_context
+          <<: *master_filter
+          env: prod
+          python_tag: 3.8
+          poetry_version: 1.1.11
+      - build-and-deploy:
+          name: 3_7_build_and_deploy
+          <<: *docker_context
+          <<: *master_filter
+          env: prod
+          python_tag: 3.7
+          poetry_version: 1.1.11
