@@ -44,29 +44,29 @@ workflows:
           <<: *docker_context
           <<: *develop_filter
           env: dev
-          python_tag: 3.10
-          poetry_version: 1.1.11
+          python_tag: "3.10"
+          poetry_version: "1.1.11"
       - build-and-deploy:
           name: 3_9_build_and_deploy
           <<: *docker_context
           <<: *develop_filter
           env: dev
-          python_tag: 3.9
-          poetry_version: 1.1.11
+          python_tag: "3.9"
+          poetry_version: "1.1.11"
       - build-and-deploy:
           name: 3_8_build_and_deploy
           <<: *docker_context
           <<: *develop_filter
           env: dev
-          python_tag: 3.8
-          poetry_version: 1.1.11
+          python_tag: "3.8"
+          poetry_version: "1.1.11"
       - build-and-deploy:
           name: 3_7_build_and_deploy
           <<: *docker_context
           <<: *develop_filter
           env: dev
-          python_tag: 3.7
-          poetry_version: 1.1.11
+          python_tag: "3.7"
+          poetry_version: "1.1.11"
   "Build production":
     jobs:
       - build-and-deploy:
@@ -74,26 +74,26 @@ workflows:
           <<: *docker_context
           <<: *master_filter
           env: prod
-          python_tag: 3.10
-          poetry_version: 1.1.11
+          python_tag: "3.10"
+          poetry_version: "1.1.11"
       - build-and-deploy:
           name: 3_9_build_and_deploy
           <<: *docker_context
           <<: *master_filter
           env: prod
-          python_tag: 3.9
-          poetry_version: 1.1.11
+          python_tag: "3.9"
+          poetry_version: "1.1.11"
       - build-and-deploy:
           name: 3_8_build_and_deploy
           <<: *docker_context
           <<: *master_filter
           env: prod
-          python_tag: 3.8
-          poetry_version: 1.1.11
+          python_tag: "3.8"
+          poetry_version: "1.1.11"
       - build-and-deploy:
           name: 3_7_build_and_deploy
           <<: *docker_context
           <<: *master_filter
           env: prod
-          python_tag: 3.7
-          poetry_version: 1.1.11
+          python_tag: "3.7"
+          poetry_version: "1.1.11"
