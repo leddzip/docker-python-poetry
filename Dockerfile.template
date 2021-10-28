@@ -21,7 +21,7 @@ RUN apt-get update && \
 RUN set -eux && \
     wget https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py && \
     python install-poetry.py --version ${POETRY_VERSION} && \
-    rm install-poetry
+    rm install-poetry.py
 
 CMD ["bash"]
 
