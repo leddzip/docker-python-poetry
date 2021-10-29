@@ -33,6 +33,7 @@ jobs:
           echo "$MY_CIRCLECI_DOCKERHUB_PASSWORD" | docker login --username $MY_CIRCLECI_DOCKERHUB_USERNAME --password-stdin
           make generate-dockerfile
           make build
+          make test
           make push
           make clean
 

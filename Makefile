@@ -33,3 +33,11 @@ clean:
 	docker rmi $(image_name):$(env_prefix)py$(python_tag)-po$(poetry_version)
 	rm Dockerfile
 	rm args
+
+
+.ONEHSELL:
+SHELL = /bin/bash
+test:
+	source args
+	bash ./build-scripts/test_python_version.sh $(image_name):$(env_prefix)py$(python_tag)-po$(poetry_version)
+	bash ./build-scripts/test_poetry_version.sh $(image_name):$(env_prefix)py$(python_tag)-po$(poetry_version)

@@ -23,5 +23,8 @@ RUN set -eux && \
     python install-poetry.py --version ${POETRY_VERSION} && \
     rm install-poetry.py
 
+# Adding poetry install location to PATH
+ENV PATH="/root/.local/bin:$PATH"
+
 CMD ["bash"]
 
